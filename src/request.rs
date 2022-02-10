@@ -18,8 +18,8 @@ pub fn read<S: Read>(stream: &mut S, timeout: Option<Duration>) -> Result<Reques
     use std::mem;
 
     let start_time = Instant::now();
-    let mut buffer = Vec::with_capacity(512);
-    let mut read_buf = [0_u8; 512];
+    let mut buffer = Vec::with_capacity(512 * 8);
+    let mut read_buf = [0_u8; 512 * 8];
 
     let request = loop {
         match stream.read(&mut read_buf) {
