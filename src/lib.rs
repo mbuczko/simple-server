@@ -394,7 +394,15 @@ impl Server {
 
                 f.read_to_end(&mut source)?;
 
-                let response = response_builder.body(source)?;
+                let mut response = response_builder.body(source)?;
+                match fs_path.extension() {
+                    Some(ext) => {
+                        if ext == "js" {
+                            response.headers_mut().append("content-type", "application/javascript".parse().unwrap());
+                        }
+                    }
+                    _ => ()
+                }
 
                 write_response(response, stream)?;
                 return Ok(());
