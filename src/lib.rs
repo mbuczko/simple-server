@@ -362,7 +362,11 @@ impl Server {
 
         // first, we serve static files
         if let Some(ref static_directory) = self.static_directory {
-            let fs_path = request.uri().to_string();
+            let mut fs_path = request.uri().to_string();
+
+            if fs_path == "/" {
+                fs_path = "/index.html".to_string();
+            }
 
             // the uri always includes a leading /, which means that join will over-write the static directory...
             let fs_path = PathBuf::from(&fs_path[1..]);
