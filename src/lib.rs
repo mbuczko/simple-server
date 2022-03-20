@@ -399,6 +399,9 @@ impl Server {
                     Some(ext) => {
                         if ext == "js" {
                             response.headers_mut().append("content-type", "application/javascript".parse().unwrap());
+                        } else
+                        if ext == "html" {
+                            response.headers_mut().append("content-type", "text/html".parse().unwrap());
                         }
                     }
                     _ => ()
